@@ -36,29 +36,16 @@ class RecordService {
     return this.endDate;
   }
 
-  /**
-   * get all records
-   * @returns {object} records
-   */
-  async getAllRecords() {
-    try {
-      const result = await this.RecordModel.find();
-      return {
-        success: true,
-        data: result
-      };
-    } catch (error) {
-      return error;
-    }
-  }
 
   /**
   * get records by range
   * @param {date} from startdate
   * @param {date} to enddate
+  * @param {integer} minCount minimum total count
+  * @param {integer} maxCount maximum total count
   * @returns {object} records within range
   */
-  async getAllRecordsByDateRange(from, to) {
+  async getRecordsByDateRangeFilterByCount(from, to, minCount, maxCount) {
     try {
       const startDate = this.setStartDate(from);
       const endDate = this.setEndDate(to);
@@ -77,9 +64,18 @@ class RecordService {
           {
             $project: {
               key: 1,
+              createdAt: 1,
               TotalCounts: {
                 $sum: '$counts'
               }
+            }
+          },
+          {
+            $match: {
+              TotalCounts: {
+                $gte: minCount,
+                $lte: maxCount,
+              },
             }
           },
         ]

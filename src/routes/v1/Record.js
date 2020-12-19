@@ -1,8 +1,7 @@
 import express from 'express';
-import { getAllRecords, getAllRecordsByDate } from '../../controllers/Record';
-// import { validateUserLogin } from '../../middlewares/validations/user';
+import { getRecordsByDateRangeFilterByCount } from '../../controllers/Record';
+import { validateRecordInput } from '../../middlewares/validations/record';
 
 const router = express.Router();
-router.get('/', getAllRecords);
-router.post('/', getAllRecordsByDate);
+router.post('/', validateRecordInput, getRecordsByDateRangeFilterByCount);
 export default router;

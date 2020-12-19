@@ -6,7 +6,7 @@ import logger from './services/Logger';
 const mongooseOptions = {
   useCreateIndex: true,
   useNewUrlParser: true,
-  autoReconnect: true
+  useUnifiedTopology: true,
 };
 
 mongoose.Promise = global.Promise;
