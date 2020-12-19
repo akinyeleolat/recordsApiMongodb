@@ -1,10 +1,10 @@
 import { Router } from 'express';
-// import userRoute from './user';
+import recordRoute from './Record';
 
 const router = Router();
 
 
-// router.use('/auth', userRoute);
+router.use('/records', recordRoute);
 router.all('/', (req, res) => {
   res.send({ message: 'Hello from templates!' });
 });

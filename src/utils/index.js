@@ -1,31 +1,6 @@
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import Validator from 'validatorjs';
 
 export const uuidFormat = 'regex:/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/';
-
-/**
- * @param {string} password
- * @return {string} hash
- */
-export const hashPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-
-
-/**
- * @param {string} id
- * @param {string} email
- * @param {string} tokenExpiryDate
- * @param {string} secret
- * @return {string} token
- */
-export const tokenGenerator = (id, email, tokenExpiryDate = '1h', secret = 'secret') => {
-  const payload = { id };
-  if (email) {
-    payload.email = email;
-  }
-  const token = jwt.sign(payload, secret, { expiresIn: tokenExpiryDate });
-  return token;
-};
 
 
 /**
@@ -75,18 +50,6 @@ export const validate = (data, rules, response, nextFunction) => {
   const check = checkValidation(data, rules);
   return check === true ? nextFunction() : displayError(check.error, response);
 };
-/**
- * @param {string} hashPwd
- * @param {string} password
- * @return {string} hash
- */
-export const comparePassword = (hashPwd, password) => bcrypt.compareSync(password, hashPwd);
-
-/**
- * @param {string} token
- * @return {object} decodeToken
- */
-export const decodeToken = token => jwt.verify(token, process.env.SECRET);
 
 /**
  * @param {object} data
