@@ -1,32 +1,25 @@
-/* eslint-disable no-new */
-import Sequelize from 'sequelize';
+import mongoose from 'mongoose';
+import config from './configs';
 import ExpressLoader from './loaders/Express';
-import configuration from './configs/config';
 import logger from './services/Logger';
 
-const env = process.env.NODE_ENV || 'development';
-const config = configuration[env];
+const mongooseOptions = {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  autoReconnect: true
+};
 
-const db = {};
+mongoose.Promise = global.Promise;
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
-
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-db.sequelize
-  .authenticate()
+mongoose.connect(config.dbUrl, mongooseOptions)
   .then(() => {
-    logger.info('Connection to DB has been established successfully.');
+    logger.info('Database connection successful');
+
+    // eslint-disable-next-line no-new
     new ExpressLoader();
   })
   .catch((err) => {
-    // eslint-disable-next-line no-console
-    console.error(err);
-    logger.error('Unable to connect to the database:', err);
+    // eslint-disable-next-line
+    console.error( err );
+    logger.error(err);
   });

@@ -15,8 +15,8 @@ const routes = (app) => {
     res.removeHeader('X-Powered-By');
     next();
   });
-  // you can do versioning
-  app.use('/', routesList);
+
+  app.use('/v1/', routesList);
 };
 
 export default routes;
