@@ -4,7 +4,7 @@ const logger = createLogger({
   level: 'info',
   format: _format.json(),
   defaultMeta: {
-    service: 'car-booking-service',
+    service: 'record-fetching-service',
     time: new Date().toISOString()
   },
   transports: [
