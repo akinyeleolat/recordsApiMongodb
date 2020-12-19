@@ -63,6 +63,7 @@ class RecordService {
           },
           {
             $project: {
+              _id: 0,
               key: 1,
               createdAt: 1,
               TotalCounts: {
@@ -87,8 +88,9 @@ class RecordService {
       }
 
       return {
-        success: true,
-        data: result
+        code: 0,
+        msg: 'success',
+        records: result
       };
     } catch (error) {
       return error;

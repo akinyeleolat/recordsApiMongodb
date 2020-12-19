@@ -15,11 +15,12 @@ export const validateRecordInput = (req, res, next) => {
   const formattedValues = toLowerCaseAndTrim(req.body);
   req.formattedValues = formattedValues;
 
-  const dateFormat = 'regex:/^d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/';
+  const dateFormat = `${/^\d{4}-\d{2}-\d{2}$/}`;
 
   const {
     startDate, endDate, minCount, maxCount
   } = formattedValues;
+
 
   const data = {
     startDate,
@@ -29,8 +30,8 @@ export const validateRecordInput = (req, res, next) => {
   };
 
   const recordRules = {
-    startDate: ['required', dateFormat, 'date'],
-    endDate: ['required', dateFormat, 'date'],
+    startDate: ['required', 'date', `regex:${dateFormat}`],
+    endDate: ['required', 'date', `regex:${dateFormat}`],
     minCount: 'required|integer',
     maxCount: 'required|integer',
   };
