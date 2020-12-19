@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.com/akinyeleolat/nodejs-starter.svg?token=cwN91MVvrFcs3q4Up8px&branch=main)](https://travis-ci.com/akinyeleolat/nodejs-starter)
+[![Build Status](https://travis-ci.com/akinyeleolat/recordsApiMongodb.svg?branch=main)](https://travis-ci.com/akinyeleolat/recordsApiMongodb)
 # carBooking
-Car Booking Api
+Record Fetching Api
 
 
 # Application Details
@@ -10,9 +10,8 @@ Currently,
 <ul>
 <li>NodeJs </li>
 <li>ExpressJs</li>
-<li>Sequelize: Database ORM</li>
-<li>PostgreSQL Database</li>
-<li>Sqlite</li>
+<li>Mongoose Database ODM</li>
+<li>MongoDB Database</li>
 <li>Mocha Chai</li>
   </ul>
 

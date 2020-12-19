@@ -17,7 +17,7 @@ class ExpressLoader {
   constructor() {
     const app = express();
 
-    // Setup error handling, this must be after all other middleware
+
     app.use(ExpressLoader.errorHandler);
 
     // Set up middleware
@@ -40,7 +40,6 @@ class ExpressLoader {
     // Start application
     this.server = app.listen(config.port, () => {
       logger.info(`Express running, now listening on port ${config.port}`);
-      // console.log(`Express running, now listening on port ${config.port}`);
     });
   }
 
@@ -62,7 +61,6 @@ class ExpressLoader {
   static errorHandler(error, req, res, next) {
     let parsedError;
 
-    // Attempt to gracefully parse error object
     try {
       if (error && typeof error === 'object') {
         parsedError = JSON.stringify(error);
@@ -73,10 +71,8 @@ class ExpressLoader {
       logger.error(e);
     }
 
-    // Log the original error
     logger.error(parsedError);
 
-    // If response is already sent, don't attempt to respond to client
     if (res.headersSent) {
       return next(error);
     }
@@ -87,4 +83,3 @@ class ExpressLoader {
 }
 
 export default ExpressLoader;
-// add helmet.js
