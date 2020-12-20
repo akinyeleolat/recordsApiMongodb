@@ -1,7 +1,5 @@
 import Validator from 'validatorjs';
 
-export const uuidFormat = 'regex:/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/';
-
 
 /**
  * check Validation function
@@ -28,12 +26,15 @@ export const checkValidation = (data, rules) => {
  * @param {Object} err
  * @param {Object} res
  * @param {number} status
+ * @param {number} code
+ * @param {msg} msg
  * @returns {Object} response body - statusCode and errorMessage
  */
-export const displayError = (err, res, status = 400) => {
+export const displayError = (err, res, status = 400, code = 1, msg) => {
   res.status(status).json({
-    status,
-    message: err.message
+    code,
+    msg,
+    details: err.message
   });
 };
 
@@ -48,39 +49,9 @@ export const displayError = (err, res, status = 400) => {
  */
 export const validate = (data, rules, response, nextFunction) => {
   const check = checkValidation(data, rules);
-  return check === true ? nextFunction() : displayError(check.error, response);
+  return check === true ? nextFunction() : displayError(check.error, response, 400, 1, 'validation error');
 };
 
-/**
- * @param {object} data
- * @param {string} message
- * @param {object} res
- * @param {number} status
- * @return {object} response
- */
-export const handleSuccessResponse = (data, message, res, status = 200) => (
-  res.status(status).json({
-    status: 'success',
-    message,
-    data
-  })
-);
-
-/**
- * @param {object} data
- * @param {string} message
- * @param {object} res
- * @param {string} status
- * @param {number} statusCode
- * @return {object} response
- */
-export const handleResponse = (data, message, res, status, statusCode) => (
-  res.status(statusCode).json({
-    status,
-    message,
-    data
-  })
-);
 
 /**
  * @param {object} inputObject

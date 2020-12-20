@@ -16,7 +16,7 @@ describe('Routes', () => {
       .end((err, res) => {
         expect(res.status).to.be.equal(404);
         expect(res.body)
-          .to.have.property('message')
+          .to.have.property('details')
           .to.equal('you have entered an incorrect route');
         done();
       });

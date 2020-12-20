@@ -13,19 +13,19 @@ describe('Record validations', () => {
       .post('/v1/records')
       .send(emptyData)
       .end((err, res) => {
-        expect(res.status && res.body.status).to.be.equal(400);
+        expect(res.status).to.be.equal(400);
         expect(res).to.be.an('object');
-        expect(res.body).to.have.property('message');
-        expect(res.body.message.startDate)
+        expect(res.body).to.have.property('details');
+        expect(res.body.details.startDate)
           .to.be.an('array')
           .that.does.include('The startDate field is required.');
-        expect(res.body.message.endDate)
+        expect(res.body.details.endDate)
           .to.be.an('array')
           .that.does.include('The endDate field is required.');
-        expect(res.body.message.minCount)
+        expect(res.body.details.minCount)
           .to.be.an('array')
           .that.does.include('The minCount field is required.');
-        expect(res.body.message.maxCount)
+        expect(res.body.details.maxCount)
           .to.be.an('array')
           .that.does.include('The maxCount field is required.');
         done();
@@ -38,7 +38,7 @@ describe('Record validations', () => {
       .post('/v1/records')
       .send(getData({ startDate: '2017/09/90' }))
       .end((err, res) => {
-        expect(res.body.message.startDate)
+        expect(res.body.details.startDate)
           .to.be.an('array')
           .that.does.include('The startDate format is invalid.');
         done();
@@ -51,7 +51,7 @@ describe('Record validations', () => {
       .post('/v1/records')
       .send(getData({ startDate: '2017' }))
       .end((err, res) => {
-        expect(res.body.message.startDate)
+        expect(res.body.details.startDate)
           .to.be.an('array')
           .that.does.include('The startDate format is invalid.');
         done();

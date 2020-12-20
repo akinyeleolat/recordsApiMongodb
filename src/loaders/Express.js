@@ -33,8 +33,9 @@ class ExpressLoader {
     routes(app);
 
     app.all('*', (req, res) => res.status(404).send({
-      status: 'error',
-      message: 'you have entered an incorrect route'
+      code: 2,
+      msg: 'error',
+      details: 'you have entered an incorrect route'
     }));
 
     // Start application

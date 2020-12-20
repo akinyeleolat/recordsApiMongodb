@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.com/akinyeleolat/recordsApiMongodb.svg?branch=main)](https://travis-ci.com/akinyeleolat/recordsApiMongodb)
-# carBooking
+# recordApi
 Record Fetching Api
 
 
@@ -20,12 +20,10 @@ Enviroment variables are set in `.env` files and the examples can be seen in `en
 
 1. Create `.env` files in the root folder, and set the correct environment variables as stated in `env.examples`
 2. Open terminal and navigate to the root folder.
-3. Install all dependencies and also set up the `database` and `database migration` by running this command on the terminal
+3. Install all dependencies
 
     ```
     - npm install
-    - npm run migration
-    - npm run seed
     ```
 
 ## Running the App (Development)
@@ -49,10 +47,9 @@ Enviroment variables are set in `.env` files and the examples can be seen in `en
     - npm test
 ```
 
-## API Documentation ( Sample)
-The API documentation can be seen on (https://documenter.getpostman.com/view/5081938/TVev54tn)
+## API URL
 
-Application url: ```https://carbookingng.herokuapp.com```
+Base url: ```https://recordsapi.herokuapp.com```
 
 ## API Endpoint Route
 Currently,
@@ -60,38 +57,39 @@ Currently,
   <tr>
     <td>HTTP VERB</td>
     <td>ENDPOINT</td>
+    <td>REQUEST</td>
+    <td>RESPONSE</td>
     <td>TASK</td>
   </tr>
   <tr>
     <td>POST</td>
-    <td>/auth/login</td>
-    <td>Login to the application with email and password</td>
-  </tr>
-  <tr>
-    <td>GET</td>
-    <td>/cars</td>
-    <td>Get all the available cars. This without specifying limit and page will only return first 10 cars</td>
-  </tr>
-  <tr>
-    <td>GET</td>
-    <td>cars/?limit=2&page=1</td>
-    <td>Get all availble cars with page and limit set as query  params.
+    <td>/v1/records</td>
+    <td>
+    {
+"startDate": "2017-01-30",
+"endDate": "2017-01-30",
+"minCount": 110,
+"maxCount": 170
+}
 </td>
-  </tr>
-  <tr>
-    <td>POST</td>
-    <td>/booking</td>
-    <td>Book a car by supplying the carId for currently logged in users</td>
-  </tr>
-  <tr>
-    <td>GET</td>
-    <td>/booking/user</td>
-    <td>Get all the available bookings for current users. This without specifying limit and page will only return first 10 bookings</td>
-  </tr>
-  <tr>
-    <td>GET</td>
-    <td>/booking/user/?limit=2&page=1</td>
-    <td>Get all availble bookings for current users with page and limit set as query  params.
-</td>
+<td>
+    {
+    "code": 0,
+    "msg": "success",
+    "records": [
+        {
+            "key": "TAKwGc6Jr4i8Z487",
+            "createdAt": "2017-01-28T01:22:14.398Z",
+            "TotalCounts": 170
+        },
+        {
+            "key": "TAKwGc6Jr4i8Z487",
+            "createdAt": "2017-01-28T01:22:14.398Z",
+            "TotalCounts": 120
+        }
+    ]
+}
+  </td>
+  <td>Fetch records base on date range and count sumation</td>
   </tr>
   </table>
