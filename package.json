@@ -7,7 +7,7 @@
     "build-server": "babel src --out-dir dist",
     "build": "npm run clean && npm run build-server",
     "clean": "rm -rf dist && mkdir dist",
-    "test": "NODE_ENV=test nyc mocha ./src/spec/index.spec.js --timeout 5000 --exit",
+    "test": "NODE_ENV=test nyc mocha ./src/spec/index.spec.js --timeout 10000 --exit",
     "lint": "eslint '**/*js'",
     "lint:fix": "prettier-eslint --write '**/*js' ",
     "dev": "nodemon ./src/index.js --exec babel-node",

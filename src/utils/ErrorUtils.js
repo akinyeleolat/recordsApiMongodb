@@ -8,10 +8,11 @@ class UsefulError extends Error {
      * @param {*} name
      * @param {*} httpStatusCode
      * @param {*} message
+     * @param {*} code
      * @param {*} context
      * @param  {...any} params
      */
-  constructor(name, httpStatusCode = 500, message, context, ...params) {
+  constructor(name, httpStatusCode = 500, message, code, context, ...params) {
     // Pass remaining arguments (including vendor specific ones) to parent constructor
     super(...params);
 
@@ -23,6 +24,7 @@ class UsefulError extends Error {
     this.name = name;
     this.httpStatusCode = httpStatusCode;
     this.message = message;
+    this.code = code;
     this.context = context;
     this.date = new Date();
   }
