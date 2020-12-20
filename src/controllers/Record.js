@@ -1,12 +1,10 @@
-/* eslint-disable import/prefer-default-export */
 import RecordServices from '../services/Record';
 
 import { displayError } from '../utils';
 
 const RecordServiceInstance = new RecordServices();
 
-
-export const getRecordsByDateRangeFilterByCount = async (req, res, next) => {
+const getRecordsByDateRangeFilterByCount = async (req, res, next) => {
   try {
     const {
       startDate, endDate, minCount, maxCount
@@ -22,3 +20,5 @@ export const getRecordsByDateRangeFilterByCount = async (req, res, next) => {
     return next(Error);
   }
 };
+
+export default getRecordsByDateRangeFilterByCount;

@@ -1,4 +1,3 @@
-/* eslint-disable valid-jsdoc */
 import { urlencoded, json } from 'body-parser';
 import express from 'express';
 import morgan from 'morgan';
@@ -53,10 +52,10 @@ class ExpressLoader {
 
   /**
    * @description Default error handler to be used with express
-   * @param error Error object
-   * @param req {object} Express req object
-   * @param res {object} Express res object
-   * @param next {function} Express next object
+   * @param  {object} error object
+   * @param {object} req  Express req object
+   * @param {object} res  Express res object
+   * @param  {function} next Express next object
    * @returns {*} errors
    */
   static errorHandler(error, req, res, next) {

@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import {
   validate,
   toLowerCaseAndTrim,
@@ -11,7 +10,7 @@ import {
   * @param {Object} next - call next function
   * @returns {Function} validate - call validate function
 */
-export const validateRecordInput = (req, res, next) => {
+const validateRecordInput = (req, res, next) => {
   const formattedValues = toLowerCaseAndTrim(req.body);
   req.formattedValues = formattedValues;
 
@@ -37,3 +36,5 @@ export const validateRecordInput = (req, res, next) => {
   };
   validate(data, recordRules, res, next);
 };
+
+export default validateRecordInput;

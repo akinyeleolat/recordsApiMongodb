@@ -36,6 +36,7 @@ Enviroment variables are set in `.env` files and the examples can be seen in `en
 1. Open terminal and navigate to the root folder.
 2. Run this command on terminal 
 ```
+    - npm run build
     - npm start
 ```
 

@@ -15,11 +15,10 @@ mongoose.connect(config.dbUrl, mongooseOptions)
   .then(() => {
     logger.info('Database connection successful');
 
-    // eslint-disable-next-line no-new
-    new ExpressLoader();
+    const Server = new ExpressLoader();
+    Server();
   })
   .catch((err) => {
-    // eslint-disable-next-line
-    console.error( err );
+    // console.error( err );
     logger.error(err);
   });

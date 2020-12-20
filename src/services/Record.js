@@ -89,7 +89,7 @@ class RecordService {
 
       return {
         code: 0,
-        msg: 'success',
+        msg: 'Success',
         records: result
       };
     } catch (error) {
