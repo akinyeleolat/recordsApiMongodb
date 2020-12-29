@@ -4,6 +4,7 @@ import { displayError } from '../utils';
 
 const RecordServiceInstance = new RecordServices();
 
+// https://stackoverflow.com/questions/49470060/should-i-use-classes-for-nodejs-models-and-controller about class based controller
 const getRecordsByDateRangeFilterByCount = async (req, res, next) => {
   try {
     const {

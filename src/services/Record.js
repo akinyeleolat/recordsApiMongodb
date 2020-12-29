@@ -21,6 +21,7 @@ class RecordService {
    * @returns {object} records
    */
   setStartDate(startDate) {
+    // normal date function can used
     this.startDate = moment(startDate).format(format);
     return this.startDate;
   }
@@ -36,6 +37,32 @@ class RecordService {
     return this.endDate;
   }
 
+  /**
+   * get sum of all counts
+   * @param {array} counts count
+   * @returns {integer} totalCount
+   */
+  getTotalCount(counts) {
+    this.totalCount = counts.reduce((total, num) => total + num);
+    return this.totalCount;
+  }
+
+  /**
+ *  build the object
+ * @param {*} record
+ * @param {*} totalCount
+ * @return {object} value
+ */
+  buildObject(record, totalCount) {
+    const { key, createdAt } = record;
+    const value = {
+      key,
+      createdAt,
+      totalCount
+    };
+    this.value = value;
+    return this.value;
+  }
 
   /**
   * get records by range
@@ -51,36 +78,19 @@ class RecordService {
       const endDate = this.setEndDate(to);
 
 
-      const result = await this.RecordModel.aggregate(
-        [
-          {
-            $match: {
-              createdAt: {
-                $gte: new Date(startDate),
-                $lt: new Date(endDate),
-              },
-            }
-          },
-          {
-            $project: {
-              _id: 0,
-              key: 1,
-              createdAt: 1,
-              TotalCounts: {
-                $sum: '$counts'
-              }
-            }
-          },
-          {
-            $match: {
-              TotalCounts: {
-                $gte: minCount,
-                $lte: maxCount,
-              },
-            }
-          },
-        ]
-      ).sort({ createdAt: 'asc' });
+      const recordData = await this.RecordModel.find({
+        createdAt: {
+          $gte: new Date(startDate),
+          $lte: new Date(endDate)
+        }
+      });
+
+      const result = recordData.map((record) => {
+        const totalCount = this.getTotalCount(record.counts);
+        return this.buildObject(record, totalCount);
+      })
+        .filter(list => list.totalCount <= maxCount && list.totalCount >= minCount)
+        .sort((a, b) => b.createdAt - a.createdAt);
 
 
       if (!result || !result.length) {

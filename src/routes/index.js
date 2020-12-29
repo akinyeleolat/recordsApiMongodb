@@ -12,6 +12,7 @@ const routes = (app) => {
       'X-Requested-With, content-type, x-access-token, authorization'
     );
     res.setHeader('Access-Control-Allow-Credentials', true);
+    // can use helmet instead
     res.removeHeader('X-Powered-By');
     next();
   });

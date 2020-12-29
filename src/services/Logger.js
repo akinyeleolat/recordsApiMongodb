@@ -14,5 +14,5 @@ const logger = createLogger({
     new _transports.File({ filename: 'combined.log' })
   ]
 });
-
+// can set up a strea functions to check the logs
 export default logger;
